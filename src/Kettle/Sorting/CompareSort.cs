@@ -30,61 +30,56 @@ using System.Collections.Generic;
 namespace Kettle.Sorting
 {
     /// <summary>
-    /// An Insertion sort implementation of the <see cref="ICompareSort{T}"/> interface.
+    /// Provides a base class for implementing the <see cref="ICompareSort{T}"/> interface.
     /// </summary>
-    /// <typeparam name="T">The type of objects to sort. Must implement <see cref="IComparable{T}"/>.</typeparam>
-    public sealed class InsertionSort<T> : CompareSort<T> where T : IComparable<T>
+    /// <typeparam name="T">The type of objects to sort.</typeparam>
+    public abstract class CompareSort<T> : SortBase<T>, ICompareSort<T> where T : IComparable<T>
     {
+        #region Fields
+
+        /// <summary>
+        /// The <see cref="IComparer{T}"/> to use for comparing objects while sorting.
+        /// </summary>
+        protected IComparer<T> _comparer;
+
+        #endregion Fields
+
         #region Constructors
 
         /// <summary>
-        /// Initializes a <see cref="InsertionSort{T}"/> class.
+        /// Initializes a <see cref="CompareSort{T}"/> class.
         /// </summary>
         /// <remarks>
         /// Defaults the <see cref="Comparer"/> to a <see cref="Comparer{T}.Default"/> which should
         /// be the <see cref="IComparable{T}"/> implementation for T.
         /// </remarks>
-        public InsertionSort()
+        protected CompareSort() : this(Comparer<T>.Default)
         {
         }
 
         /// <summary>
-        /// Initializes a <see cref="InsertionSort{T}"/> class.
+        /// Initializes a <see cref="CompareSort{T}"/> class.
         /// </summary>
         /// <param name="comparer">The <see cref="IComparer{T}"/> to use for all sorting comparisons.</param>
-        public InsertionSort(IComparer<T> comparer) : base(comparer)
+        protected CompareSort(IComparer<T> comparer)
         {
+            _comparer = comparer ?? throw new ArgumentNullException(nameof(comparer));
         }
 
         #endregion Constructors
 
-        #region Methods
+        #region Properties
 
         /// <summary>
-        /// Sorts the entire <see cref="IList{T}"/> in place using the Insertion Sort algorithm.
+        /// Gets or sets the <see cref="IComparer{T}"/> to use for sorting the objects.
         /// </summary>
-        /// <param name="list">The <see cref="IList{T}"/> of objects to be sorted.</param>
-        /// <param name="start">The starting index of the first object to sort.</param>
-        /// <param name="count">The number of objects to include in the sort.</param>
-        public override void Sort(IList<T> list, int start, int count)
+        /// <remarks>Defaults to <see cref="Comparer{T}.Default"/></remarks>.
+        public virtual IComparer<T> Comparer
         {
-            SortValidationCheck(list, start, count);
-
-            int i, j;
-            int end = start + count;
-
-            for (i = start + 1; i < end; i++)
-            {
-                T item = list[i];
-                for (j = i - 1; (j >= 0) && (Comparer.Compare(list[j], item) > 0); j--)
-                {
-                    list[j + 1] = list[j];
-                }
-
-                list[j + 1] = item;
-            }
+            get => _comparer;
+            set => _comparer = value ?? Comparer<T>.Default;
         }
 
-        #endregion Methods
+        #endregion Properties
     }
 }

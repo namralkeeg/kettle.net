@@ -31,12 +31,12 @@ using Kettle.Common;
 namespace Kettle.Sorting
 {
     /// <summary>
-    /// A Bubble Sort implementation of the <see cref="ISortAlgorithm{T}"/> interface.
+    /// A Bubble Sort implementation of the <see cref="ICompareSort{T}"/> interface.
     /// </summary>
     /// <typeparam name="T">The type of objects to sort.</typeparam>
     /// <remarks>Includes an optimization where by after every pass, all elements after the 
     /// last swap are sorted, and do not need to be checked again</remarks>
-    public sealed class BubbleSort<T> : SortAlgorithm<T> where T : IComparable<T>
+    public sealed class BubbleSort<T> : CompareSort<T> where T : IComparable<T>
     {
         #region Constructors
 

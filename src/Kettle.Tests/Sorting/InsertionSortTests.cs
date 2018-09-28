@@ -9,8 +9,8 @@ namespace Kettle.Tests.Sorting
     public class InsertionSortTests
     {
         internal static int[] testArray = { 1, 9, 2, 8, 3, 7, 4, 6, 5, 0 };
-        internal static ISortAlgorithm<int> defaultSort = new InsertionSort<int>();
-        internal static ISortAlgorithm<int> customSort = new InsertionSort<int>(new SortCustomComparer());
+        internal static ISort<int> defaultSort = new InsertionSort<int>();
+        internal static ISort<int> customSort = new InsertionSort<int>(new SortCustomComparer());
 
         internal class SortCustomComparer : Comparer<int>
         {
