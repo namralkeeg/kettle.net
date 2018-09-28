@@ -30,18 +30,19 @@ using System.Collections.Generic;
 namespace Kettle.Sorting
 {
     /// <summary>
-    /// Represents a set of functions for doing a comparison sort on an generic <see cref="IList{T}"/> of objects.
+    /// Represents a set of functions for doing a keyed sort on an generic <see cref="IList{T}"/> of objects.
     /// </summary>
     /// <typeparam name="T">
-    /// The type of objects in the <see cref="IList{T}"/> to sort. Objects must also implement the
-    /// <see cref="IComparable{T}"/> interface.
+    /// The type of objects in the <see cref="IList{T}"/> to sort.
     /// </typeparam>
-    public interface ICompareSort<T> : ISort<T> where T : IComparable<T>
+    public interface IKeyedSort<T> : ISort<T>
     {
         /// <summary>
-        /// Gets or sets the <see cref="IComparer{T}"/> used for sorting the objects.
+        /// Gets and sets the <see cref="Func{T, int}"/> key generation function.
         /// </summary>
-        /// <returns>The <see cref="IComparer{T}"/> the sorting function will use.</returns>
-        IComparer<T> Comparer { get; set; }
+        /// <value>
+        /// A function <see cref="Func{T, int}"/> that returns an uint key based on the value of T.
+        /// </value>
+        Func<T, int> KeyFunction { get; set; }
     }
 }
