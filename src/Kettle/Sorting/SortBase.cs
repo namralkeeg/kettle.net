@@ -29,55 +29,22 @@ using System.Collections.Generic;
 
 namespace Kettle.Sorting
 {
-    public abstract class SortAlgorithm<T> : ISortAlgorithm<T> where T : IComparable<T>
+    /// <summary>
+    /// Provides a base class for implementing the <see cref="ISort{T}"/> interface.
+    /// </summary>
+    /// <typeparam name="T">The type of objects to sort.</typeparam>
+    public abstract class SortBase<T> : ISort<T>
     {
-        #region Fields
-
-        /// <summary>
-        /// The <see cref="IComparer{T}"/> to use for comparing objects while sorting.
-        /// </summary>
-        protected IComparer<T> _comparer;
-
-        #endregion Fields
-
         #region Constructors
 
         /// <summary>
-        /// Initializes a <see cref="SortAlgorithm{T}"/> class.
+        /// Initializes a <see cref="SortBase{T}"/> class.
         /// </summary>
-        /// <remarks>
-        /// Defaults the <see cref="Comparer"/> to a <see cref="Comparer{T}.Default"/> which should
-        /// be the <see cref="IComparable{T}"/> implementation for T.
-        /// </remarks>
-        protected SortAlgorithm()
+        protected SortBase()
         {
-            _comparer = Comparer<T>.Default;
-        }
-
-        /// <summary>
-        /// Initializes a <see cref="SortAlgorithm{T}"/> class.
-        /// </summary>
-        /// <param name="comparer">The <see cref="IComparer{T}"/> to use for all sorting comparisons.</param>
-        protected SortAlgorithm(IComparer<T> comparer)
-        {
-            _comparer = comparer ?? Comparer<T>.Default;
         }
 
         #endregion Constructors
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the <see cref="IComparer{T}"/> to use for sorting the objects.
-        /// </summary>
-        /// <remarks>Defaults to <see cref="Comparer{T}.Default"/></remarks>.
-        public virtual IComparer<T> Comparer
-        {
-            get => _comparer;
-            set => _comparer = value ?? Comparer<T>.Default;
-        }
-
-        #endregion Properties
 
         #region Methods
 
