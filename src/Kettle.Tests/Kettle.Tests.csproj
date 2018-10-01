@@ -61,6 +61,7 @@
     <Compile Include="Sorting\BubbleSortTests.cs" />
     <Compile Include="Sorting\CountingSortTests.cs" />
     <Compile Include="Sorting\CycleSortTests.cs" />
+    <Compile Include="Sorting\HeapSortTests.cs" />
     <Compile Include="Sorting\InsertionSortTests.cs" />
     <Compile Include="Sorting\RadixSortTests.cs" />
   </ItemGroup>
