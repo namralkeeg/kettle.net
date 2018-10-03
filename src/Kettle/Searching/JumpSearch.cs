@@ -33,7 +33,7 @@ namespace Kettle.Searching
     /// A Jump Search implementation of the <see cref="ISearch{T}"/> interface.
     /// </summary>
     /// <typeparam name="T">The type of objects to search. Must implement <see cref="IComparable{T}"/>.</typeparam>
-    public sealed class JumpSearch<T> : ISearch<T> where T : IComparable<T>
+    public sealed class JumpSearch<T> : SearchBase<T> where T : IComparable<T>
     {
         /// <summary>
         /// Initializes a <see cref="JumpSearch{T}"/> class.
@@ -43,72 +43,17 @@ namespace Kettle.Searching
         }
 
         /// <summary>
-        /// Performs a Jump search on the entire sorted <see cref="IList{T}"/> of objects.
+        /// Initializes a <see cref="JumpSearch{T}"/> class.
         /// </summary>
-        /// <param name="list">The <see cref="IList{T}"/> of objects to be searched.</param>
-        /// <param name="item">The object to search for in the list.</param>
-        /// <returns>The position of the object in the list if found, otherwise -1.</returns>
-        public int Search(IList<T> list, T item)
+        /// <param name="comparer">The custom comparer to use for searching.</param>
+        public JumpSearch(IComparer<T> comparer) : base(comparer)
         {
-            return Search(list, item, 0, list.Count, Comparer<T>.Default);
         }
 
-        /// <summary>
-        /// Performs a Jump search on the entire sorted <see cref="IList{T}"/> of objects.
-        /// </summary>
-        /// <param name="list">The <see cref="IList{T}"/> of objects to be searched.</param>
-        /// <param name="item">The object to search for in the list.</param>
-        /// <param name="comparer">The custom comparer to use.</param>
-        /// <returns>The position of the object in the list if found, otherwise -1.</returns>
-        public int Search(IList<T> list, T item, IComparer<T> comparer)
+        /// <inheritdoc/>
+        public override int Search(IList<T> list, T item, int start, int count, IComparer<T> comparer)
         {
-            return Search(list, item, 0, list.Count, comparer);
-        }
-
-        /// <summary>
-        /// Performs a Jump search on the entire sorted <see cref="IList{T}"/> of objects.
-        /// </summary>
-        /// <param name="list">The <see cref="IList{T}"/> of objects to be searched.</param>
-        /// <param name="item">The object to search for in the list.</param>
-        /// <param name="start">The inclusive index into the <see cref="IList{T}"/> to start.</param>
-        /// <param name="count">The number of objects to search.</param>
-        /// <returns>The position of the object in the list if found, otherwise -1.</returns>
-        /// <exception cref="ArgumentException">Thrown if start plus count is out of range.</exception>
-        /// <exception cref="ArgumentNullException">Thrown if list is null.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if start is out of range.</exception>
-        public int Search(IList<T> list, T item, int start, int count)
-        {
-            return Search(list, item, start, count, Comparer<T>.Default);
-        }
-
-        /// <summary>
-        /// Performs a Jump search on the entire sorted <see cref="IList{T}"/> of objects.
-        /// </summary>
-        /// <param name="list">The <see cref="IList{T}"/> of objects to be searched.</param>
-        /// <param name="item">The object to search for in the list.</param>
-        /// <param name="start">The inclusive index into the <see cref="IList{T}"/> to start.</param>
-        /// <param name="count">The number of objects to search.</param>
-        /// <param name="comparer">The custom comparer to use.</param>
-        /// <returns>The position of the object in the list if found, otherwise -1.</returns>
-        /// <exception cref="ArgumentException">Thrown if start plus count is out of range.</exception>
-        /// <exception cref="ArgumentNullException">Thrown if list is null.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if start is out of range.</exception>
-        public int Search(IList<T> list, T item, int start, int count, IComparer<T> comparer)
-        {
-            if (list == null)
-            {
-                throw new ArgumentNullException(nameof(list));
-            }
-
-            if ((uint)start >= list.Count)
-            {
-                throw new ArgumentOutOfRangeException(nameof(start));
-            }
-
-            if (list.Count - start < count)
-            {
-                throw new ArgumentException("Invalid offset and count.");
-            }
+            SearchValidationCheck(list, start, count);
 
             if (comparer == null)
             {
