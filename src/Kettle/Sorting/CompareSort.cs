@@ -63,7 +63,7 @@ namespace Kettle.Sorting
         /// <param name="comparer">The <see cref="IComparer{T}"/> to use for all sorting comparisons.</param>
         protected CompareSort(IComparer<T> comparer)
         {
-            _comparer = comparer ?? throw new ArgumentNullException(nameof(comparer));
+            _comparer = comparer ?? Comparer<T>.Default;
         }
 
         #endregion Constructors
