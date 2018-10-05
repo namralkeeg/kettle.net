@@ -70,6 +70,7 @@
     <Compile Include="Sorting\MergeSortTests.cs" />
     <Compile Include="Sorting\RadixSortTests.cs" />
     <Compile Include="Sorting\SelectionSortTests.cs" />
+    <Compile Include="Sorting\ShellSortTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
