@@ -68,6 +68,7 @@
     <Compile Include="Sorting\HeapSortTests.cs" />
     <Compile Include="Sorting\InsertionSortTests.cs" />
     <Compile Include="Sorting\MergeSortTests.cs" />
+    <Compile Include="Sorting\QuickSortTests.cs" />
     <Compile Include="Sorting\RadixSortTests.cs" />
     <Compile Include="Sorting\SelectionSortTests.cs" />
     <Compile Include="Sorting\ShellSortTests.cs" />
