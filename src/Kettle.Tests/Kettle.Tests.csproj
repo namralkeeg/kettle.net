@@ -57,6 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\Queues\LinkedListQueueTests.cs" />
     <Compile Include="Collections\Trees\AVLTreeTests.cs" />
     <Compile Include="Collections\Trees\BinarySearchTreeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
